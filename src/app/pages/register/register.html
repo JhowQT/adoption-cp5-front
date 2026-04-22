@@ -1,0 +1,65 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-2xl">
+
+    <h1 class="text-2xl font-bold mb-6 text-center">Cadastro de Usuário</h1>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <!-- INPUTS -->
+      <input [(ngModel)]="form.name" placeholder="Nome"
+        class="border p-2 rounded w-full" />
+
+      <input [(ngModel)]="form.email" placeholder="Email"
+        class="border p-2 rounded w-full" />
+
+      <input type="number" [(ngModel)]="form.age"
+        class="border p-2 rounded w-full" />
+
+      <input type="password" [(ngModel)]="form.password" placeholder="Senha"
+        class="border p-2 rounded w-full" />
+
+      <input [(ngModel)]="form.city" placeholder="Cidade"
+        class="border p-2 rounded w-full col-span-2" />
+
+      <!-- SELECT HOME -->
+      <select [(ngModel)]="form.homeType" class="border p-2 rounded w-full">
+        <option value="">Tipo de moradia</option>
+        <option>Apartamento</option>
+        <option>Casa</option>
+        <option>Chácara</option>
+      </select>
+
+      <!-- SELECT EXPERIENCE -->
+      <select [(ngModel)]="form.experienceLevel" class="border p-2 rounded w-full">
+        <option value="">Experiência</option>
+        <option>Iniciante</option>
+        <option>Intermediário</option>
+        <option>Experiente</option>
+      </select>
+
+      <!-- SELECT SIZE -->
+      <select [(ngModel)]="form.preferredAnimalSize" class="border p-2 rounded w-full">
+        <option value="">Tamanho do pet</option>
+        <option>Pequeno</option>
+        <option>Médio</option>
+        <option>Grande</option>
+      </select>
+
+      <!-- CHECKBOX -->
+      <label class="flex items-center gap-2 col-span-2">
+        <input type="checkbox" [(ngModel)]="form.hasYard" />
+        Possui quintal?
+      </label>
+
+    </div>
+
+    <!-- BOTÃO -->
+    <button (click)="register()"
+      class="bg-green-500 hover:bg-green-600 text-white w-full py-2 mt-6 rounded-lg">
+      Cadastrar
+    </button>
+
+  </div>
+
+</div>
