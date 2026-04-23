@@ -25,7 +25,11 @@ export class Login {
       .subscribe({
         next: () => {
           alert('Login realizado!');
-          this.router.navigate(['/home']);
+
+          // 🔥 força reload correto do Angular
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/home']);
+          });
         },
         error: (err) => {
           alert(err.error?.error || 'Erro no login');

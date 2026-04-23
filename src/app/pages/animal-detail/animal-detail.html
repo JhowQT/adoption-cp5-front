@@ -1,16 +1,22 @@
-<div class="p-6" *ngIf="animal">
+<div *ngIf="animal; else loading" class="p-6">
 
-  <h1 class="text-2xl font-bold">{{ animal.name }}</h1>
+  <h1 class="text-2xl font-bold mb-4">{{ animal.name }}</h1>
 
-  <p>{{ animal.species }} - {{ animal.breed }}</p>
-  <p>Idade: {{ animal.age }}</p>
-  <p>Tamanho: {{ animal.size }}</p>
-  <p>{{ animal.description }}</p>
+  <p><strong>Espécie:</strong> {{ animal.species }}</p>
+  <p><strong>Raça:</strong> {{ animal.breed }}</p>
+  <p><strong>Idade:</strong> {{ animal.age }}</p>
+  <p><strong>Tamanho:</strong> {{ animal.size }}</p>
+  <p><strong>Temperamento:</strong> {{ animal.temperament }}</p>
+  <p><strong>Energia:</strong> {{ animal.energyLevel }}</p>
 
-  <button 
+  <button
     (click)="adopt()"
     class="mt-4 bg-green-500 text-white px-4 py-2 rounded">
-    Adotar
+    Solicitar Adoção
   </button>
 
 </div>
+
+<ng-template #loading>
+  <p class="p-6">Carregando animal...</p>
+</ng-template>

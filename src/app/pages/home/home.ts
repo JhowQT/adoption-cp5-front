@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AnimalService } from '../../services/animal.service';
 import { Animal } from '../../models/animal.model';
 import { CommonModule } from '@angular/common';
@@ -15,15 +15,29 @@ export class Home implements OnInit {
 
   animals: Animal[] = [];
 
-  constructor(private animalService: AnimalService) {}
+  constructor(
+    private animalService: AnimalService,
+    private cdr: ChangeDetectorRef // 👈 IMPORTANTE
+  ) {}
 
   ngOnInit() {
+    console.log('HOME INICIOU');
     this.loadAnimals();
   }
 
   loadAnimals() {
-    this.animalService.getAvailable().subscribe(data => {
-      this.animals = data;
+    this.animalService.getAvailable().subscribe({
+      next: (data) => {
+        console.log('ANIMAIS CARREGADOS:', data);
+
+        this.animals = data;
+
+        // 🔥 FORÇA ATUALIZAÇÃO DA VIEW
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
 }

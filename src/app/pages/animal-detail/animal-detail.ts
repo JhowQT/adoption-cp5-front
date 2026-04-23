@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimalService } from '../../services/animal.service';
 import { AdoptionService } from '../../services/adoption.service';
@@ -19,20 +19,47 @@ export class AnimalDetail implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalService,
-    private adoptionService: AdoptionService
+    private adoptionService: AdoptionService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.animalService.getById(id).subscribe(data => {
-      this.animal = data;
+
+    this.route.paramMap.subscribe(params => {
+
+      const id = Number(params.get('id'));
+
+      console.log('ID RECEBIDO:', id);
+
+      if (!id) {
+        console.error('ID inválido');
+        return;
+      }
+
+      this.animalService.getById(id).subscribe({
+        next: (data) => {
+          console.log('ANIMAL RECEBIDO:', data);
+          this.animal = data;
+
+          // 🔥 garante renderização
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Erro ao buscar animal:', err);
+        }
+      });
+
     });
   }
 
   adopt() {
-    const userId = 1; // depois vamos pegar do login
-    this.adoptionService.create(userId, this.animal!.id).subscribe(() => {
-      alert('Adoção solicitada!');
+    if (!this.animal) return;
+
+    const userId = 1;
+
+    this.adoptionService.create(userId, this.animal.id).subscribe({
+      next: () => alert('Adoção solicitada!'),
+      error: (err) => console.error(err)
     });
   }
 }
