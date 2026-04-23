@@ -1,13 +1,20 @@
 <div class="container">
+
   <h2>Status da Adoção</h2>
 
-  <div *ngIf="success" class="success">
-    ✅ Solicitação enviada com sucesso!
+  <div *ngIf="success" class="card success">
+    <h3>✅ Sucesso!</h3>
+    <p>Sua solicitação de adoção foi enviada com sucesso.</p>
   </div>
 
-  <div *ngIf="error" class="error">
-    ❌ Erro ao solicitar adoção. Tente novamente.
+  <div *ngIf="error" class="card error">
+    <h3>❌ Ops...</h3>
+    <p>Ocorreu um erro ao solicitar a adoção. Tente novamente.</p>
   </div>
 
-  <button routerLink="/home">Voltar</button>
+  <div class="actions">
+    <button (click)="voltar()">⬅ Voltar</button>
+    <button (click)="irParaHome()">🏠 Home</button>
+  </div>
+
 </div>

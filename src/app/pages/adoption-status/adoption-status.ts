@@ -22,4 +22,12 @@ export class AdoptionStatus {
       this.error = navigation.extras.state['error'];
     }
   }
+
+  voltar() {
+    window.history.back(); // 🔥 volta para tela anterior
+  }
+
+  irParaHome() {
+    this.router.navigate(['/home']);
+  }
 }
