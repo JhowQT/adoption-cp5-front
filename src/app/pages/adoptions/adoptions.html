@@ -1,0 +1,8 @@
+<div class="p-6">
+  <h1 class="text-xl font-bold mb-4">Minhas Adoções</h1>
+
+  <div *ngFor="let a of adoptions" class="border p-3 mb-2">
+    <p>ID Animal: {{ a.animalId }}</p>
+    <p>Status: {{ a.status }}</p>
+  </div>
+</div>
