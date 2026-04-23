@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AdoptionService } from '../../services/adoption.service';
-import { Adoption } from '../../models/adoption.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,14 +11,18 @@ import { CommonModule } from '@angular/common';
 })
 export class Adoptions implements OnInit {
 
-  adoptions: Adoption[] = [];
+  adoptions: any[] = [];
 
-  constructor(private service: AdoptionService) {}
+  constructor(private adoptionService: AdoptionService) {}
 
   ngOnInit() {
     const userId = 1;
-    this.service.getByUser(userId).subscribe(data => {
-      this.adoptions = data;
+
+    this.adoptionService.getByUser(userId).subscribe({
+      next: (data) => {
+        this.adoptions = data;
+      },
+      error: (err) => console.error(err)
     });
   }
 }

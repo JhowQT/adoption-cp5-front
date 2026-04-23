@@ -1,0 +1,13 @@
+<div class="container">
+  <h2>Status da Adoção</h2>
+
+  <div *ngIf="success" class="success">
+    ✅ Solicitação enviada com sucesso!
+  </div>
+
+  <div *ngIf="error" class="error">
+    ❌ Erro ao solicitar adoção. Tente novamente.
+  </div>
+
+  <button routerLink="/home">Voltar</button>
+</div>

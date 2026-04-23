@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimalService } from '../../services/animal.service';
 import { AdoptionService } from '../../services/adoption.service';
 import { Animal } from '../../models/animal.model';
@@ -18,6 +18,7 @@ export class AnimalDetail implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private animalService: AnimalService,
     private adoptionService: AdoptionService,
     private cdr: ChangeDetectorRef
@@ -41,7 +42,6 @@ export class AnimalDetail implements OnInit {
           console.log('ANIMAL RECEBIDO:', data);
           this.animal = data;
 
-          // 🔥 garante renderização
           this.cdr.detectChanges();
         },
         error: (err) => {
@@ -58,8 +58,22 @@ export class AnimalDetail implements OnInit {
     const userId = 1;
 
     this.adoptionService.create(userId, this.animal.id).subscribe({
-      next: () => alert('Adoção solicitada!'),
-      error: (err) => console.error(err)
+
+      // ✅ SUCESSO
+      next: () => {
+        this.router.navigate(['/adoption-status'], {
+          state: { success: true }
+        });
+      },
+
+      // ❌ ERRO (AGORA TRATADO)
+      error: (err) => {
+        console.error('Erro ao solicitar adoção:', err);
+
+        this.router.navigate(['/adoption-status'], {
+          state: { error: true }
+        });
+      }
     });
   }
 }

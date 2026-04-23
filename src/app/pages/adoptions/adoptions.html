@@ -1,8 +1,25 @@
 <div class="p-6">
-  <h1 class="text-xl font-bold mb-4">Minhas Adoções</h1>
+  <h1 class="text-2xl font-bold mb-4">Minhas Adoções</h1>
 
-  <div *ngFor="let a of adoptions" class="border p-3 mb-2">
-    <p>ID Animal: {{ a.animalId }}</p>
-    <p>Status: {{ a.status }}</p>
+  <div *ngFor="let a of adoptions" class="bg-white p-4 mb-3 rounded shadow">
+
+    <p><strong>Animal ID:</strong> {{ a.animalId }}</p>
+
+    <p>
+      <strong>Status:</strong>
+      <span [ngClass]="{
+        'text-yellow-500': a.status === 'REQUESTED' || a.status === 'ANALYZING',
+        'text-green-500': a.status === 'APPROVED',
+        'text-red-500': a.status === 'REJECTED'
+      }">
+        {{ a.status }}
+      </span>
+    </p>
+
+    <p *ngIf="a.notes">
+      <strong>Motivo:</strong> {{ a.notes }}
+    </p>
+
   </div>
+
 </div>
